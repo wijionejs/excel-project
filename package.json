@@ -21,7 +21,8 @@
   "private": true,
   "browserslist": "> 0.25%, not dead",
   "dependencies": {
-    "@babel/polyfill": "^7.8.7"
+    "@babel/polyfill": "^7.8.7",
+    "normalize.css": "^8.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
