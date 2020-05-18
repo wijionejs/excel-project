@@ -19,7 +19,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: $info-ceil-width;
+    min-width: $info-cell-width;
     height: 100%;
     border: 1px solid $border-color;
     background: #f8f9fa;
@@ -36,16 +36,16 @@
     align-items: center;
     background: #f8f9fa;
     min-width: 40px;
-    width: $ceil-width;
+    width: $cell-width;
     border: 1px solid $border-color;
     border-top: none;
     border-left: none;
   }
 
-  & .ceil {
+  & .cell {
     min-width: 40px;
     padding: 5px;
-    width: $ceil-width;
+    width: $cell-width;
     height: 100%;
     border: 1px solid #e2e3e3;
     border-top: none;
