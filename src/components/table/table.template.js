@@ -8,23 +8,30 @@ function toChar(_, index) {
 }
 
 function createRow(idx, content) {
+    const resize = idx ? '<div class="row-resize" data-resize="row"></div>' : '';
     return `
-        <div class="row">
-            <div class="row-info">${idx ? idx : ''}</div>
+        <div class="row" data-type="resizable">
+            <div class="row-info">
+                ${idx ? idx : ''}
+                ${resize}
+            </div>
             <div class="row-data">${content}</div>   
-        </div>     
+        </div>
     `;
 }
 
-function toColumn(letter) {
+function toColumn(letter, idx) {
     return `
-        <div class="column">${letter}</div>
+        <div class="column" data-column-idx="${idx}" data-type="resizable">
+            ${letter}
+            <div class="col-resize" data-resize="col"></div>
+        </div>
     `;
 }
 
-function toCell(content = '') {
+function toCell(content = '', idx) {
     return `
-        <div class="cell" contenteditable>${content}</div>
+        <div class="cell" data-cell-idx="${idx}" contenteditable>${content}</div>
     `;
 }
 
