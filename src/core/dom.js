@@ -18,10 +18,12 @@ class Dom {
 
     on(eventName, callback) {
         this.$el.addEventListener(eventName, callback);
+        return this;
     }
 
     off(eventName, callback) {
         this.$el.removeEventListener(eventName, callback);
+        return this;
     }
 
     append(node) {
@@ -35,11 +37,45 @@ class Dom {
         }
         return this;
     }
+
+    closest(selector) {
+        return $(this.$el.closest(selector));
+    }
+
+    getCoords() {
+        return this.$el.getBoundingClientRect();
+    }
+
+    css(property, value = null) {
+        if (!value) {
+            return getComputedStyle(this.$el)[property];
+        }
+        this.$el.style[property] = value;
+        return this;
+    }
+
+    clearCss() {
+        this.$el.removeAttribute('style');
+        return this;
+    }
+
+    data(property, value = null) {
+        if (!value) {
+            return this.$el.getAttribute(`data-${property}`);
+        }
+        this.$el.setAttribute(`data-${property}`, value);
+        return this;
+    }
 }
 
 export function $(selector) {
     return new Dom(selector);
 }
+
+$.find = selector => {
+    const elements = document.querySelectorAll(selector);
+    return Array.from(elements).map(el => $(el));
+};
 
 $.create = (tag, classes = '') => {
     const el = document.createElement(tag);
