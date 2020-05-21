@@ -11,6 +11,14 @@ class Dom {
         return this.$el.outerHTML;
     }
 
+    text(text) {
+        if (typeof text === 'string') {
+            this.$el.textContent = text;
+            return this;
+        }
+        return this.$el.textContent;
+    }
+
     clear() {
         this.html('');
         return this;
@@ -59,6 +67,11 @@ class Dom {
         return this;
     }
 
+    focus() {
+        this.$el.focus();
+        return this;
+    }
+
     data(property, value = null) {
         if (!value) {
             return this.$el.getAttribute(`data-${property}`);
@@ -66,16 +79,30 @@ class Dom {
         this.$el.setAttribute(`data-${property}`, value);
         return this;
     }
+
+    addClass(className) {
+        this.$el.classList.add(className);
+        return this;
+    }
+
+    removeClass(className) {
+        this.$el.classList.remove(className);
+        return this;
+    }
+
+    id(parse) {
+        if (parse) {
+            const id = this.id();
+            const [row, col] = id.split(':');
+            return {row: +row, col: +col};
+        }
+        return this.$el.dataset.id;
+    }
 }
 
 export function $(selector) {
     return new Dom(selector);
 }
-
-$.find = selector => {
-    const elements = document.querySelectorAll(selector);
-    return Array.from(elements).map(el => $(el));
-};
 
 $.create = (tag, classes = '') => {
     const el = document.createElement(tag);
@@ -86,4 +113,13 @@ $.create = (tag, classes = '') => {
         });
     }
     return $(el);
+};
+
+$.find = selector => {
+    return $(document.querySelector(selector));
+};
+
+$.findAll = selector => {
+    const elements = document.querySelectorAll(selector);
+    return Array.from(elements).map(el => $(el));
 };
