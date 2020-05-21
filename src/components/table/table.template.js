@@ -29,10 +29,17 @@ function toColumn(letter, idx) {
     `;
 }
 
-function toCell(content = '', idx) {
-    return `
-        <div class="cell" data-cell-idx="${idx}" contenteditable>${content}</div>
-    `;
+function toCell(row) {
+    return function(content = '', col) {
+        return `
+            <div class="cell" 
+                data-cell-idx="${col}" 
+                data-id="${row}:${col}" 
+                contenteditable
+                data-type="cell"
+            >${content}</div>
+        `;
+    };
 }
 
 export function createTable(rowsCount = 15) {
@@ -50,7 +57,7 @@ export function createTable(rowsCount = 15) {
     for (let i = 0; i < rowsCount; i++) {
         const cells = new Array(colsCount)
             .fill('')
-            .map(toCell)
+            .map(toCell(i))
             .join('');
         const row = createRow(i + 1, cells);
         rows.push(row);

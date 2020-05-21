@@ -43,7 +43,7 @@ export function resize(type, event) {
             : minSize;
         $parent.css(types[type].sizeType, newSize + 'px');
         if (type === 'col') {
-            $.find(`[data-cell-idx="${columnIdx}"]`)
+            $.findAll(`[data-cell-idx="${columnIdx}"]`)
                 .forEach(cell => cell.css('width', newSize + 'px'));
         }
     };
