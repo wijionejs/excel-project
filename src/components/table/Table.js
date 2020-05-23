@@ -9,6 +9,7 @@ import {
 } from "@/components/table/table.functions";
 import {TableSelection} from "@/components/table/TableSelection";
 import {$} from "@core/dom";
+import * as actions from "@/redux/actions";
 
 export class Table extends ExcelComponent {
     static className = 'excel__table';
@@ -22,7 +23,7 @@ export class Table extends ExcelComponent {
     }
 
     toHTML() {
-        return createTable(40);
+        return createTable(40, this.store.getState());
     }
 
     prepare() {
@@ -48,10 +49,18 @@ export class Table extends ExcelComponent {
         this.$emit('table:select', $cell);
     }
 
+    async resizeTable(event) {
+        try {
+            const data = await resize(event);
+            this.$dispatch(actions.tableResize(data));
+        } catch (e) {
+            console.log('Resize error: ', e.message);
+        }
+    }
+
     onMousedown(event) {
         if (isResize(event)) {
-            const type = event.target.dataset.resize;
-            resize(type, event);
+            this.resizeTable(event);
         } else if (isSelect(event)) {
             const $target = $(event.target);
             if (event.shiftKey) {
