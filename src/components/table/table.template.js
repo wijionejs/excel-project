@@ -44,12 +44,14 @@ function toColumn(state) {
 }
 
 function toCell(row, state) {
-    return function(content = '', col) {
+    return function(_, col) {
+        const id = `${row}:${col}`;
         const width = widthFromState(state, col);
+        const content = state.dataState[id] || '';
         return `
             <div class="cell" 
                 data-cell-idx="${col}" 
-                data-id="${row}:${col}" 
+                data-id="${id}" 
                 contenteditable
                 data-type="cell"
                 style="width: ${width};"
