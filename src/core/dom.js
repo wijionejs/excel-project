@@ -12,8 +12,8 @@ class Dom {
     }
 
     text(text) {
-        if (typeof text === 'string') {
-            this.$el.textContent = text;
+        if (typeof text !== 'undefined') {
+            this.$el.textContent = text.toString();
             return this;
         }
         return this.$el.textContent;

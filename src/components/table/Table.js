@@ -12,6 +12,7 @@ import {$} from "@core/dom";
 import * as actions from "@/redux/actions";
 import {defaultStyles} from "@core/constants";
 import {debounce} from "@core/utils.";
+import {parse} from "@core/parse";
 
 export class Table extends ExcelComponent {
     static className = 'excel__table';
@@ -39,8 +40,10 @@ export class Table extends ExcelComponent {
         this.selectCell($.find('[data-id="0:0"]'));
 
         this.$on('formula:input', (text) => {
+            console.log(parse(text));
             this.updateTextInStore(text);
-            this.selection.current.text(text);
+            this.selection.current.data('value', text);
+            this.selection.current.text(parse(text));
         });
 
         this.$on('formula:enter', () => {
