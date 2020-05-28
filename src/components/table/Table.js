@@ -10,6 +10,7 @@ import {
 import {TableSelection} from "@/components/table/TableSelection";
 import {$} from "@core/dom";
 import * as actions from "@/redux/actions";
+import {defaultStyles} from "@core/constants";
 
 export class Table extends ExcelComponent {
     static className = 'excel__table';
@@ -43,12 +44,23 @@ export class Table extends ExcelComponent {
         this.$on('formula:enter', () => {
             this.selection.current.focus();
         });
+
+        this.$on('toolbar:select-style', styles => {
+            this.selection.applyStyle(styles);
+            this.$dispatch(actions.applyStyles({
+                value: styles,
+                ids: this.selection.selectedIds,
+            }));
+        });
     }
 
     selectCell($cell) {
         this.selection.select($cell);
         this.$emit('table:select', $cell);
+        const styles = $cell.getStyles(Object.keys(defaultStyles));
+        this.$dispatch(actions.changeStyles(styles));
     }
+
 
     async resizeTable(event) {
         try {

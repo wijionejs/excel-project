@@ -1,10 +1,15 @@
 import {storage} from "@core/utils.";
+import {defaultStyles} from "@core/constants";
 
 const defaultState = {
     rowState: {},
     colState: {},
     dataState: {},
+    dataStyles: {},
     currentText: '',
+    currentStyles: defaultStyles,
 };
 
-export const initialState = storage('excel-state') || defaultState;
+const normalize = s => ({...s, currentStyles: {}, currentText: ''});
+
+export const initialState = normalize(storage('excel-state')) || defaultState;

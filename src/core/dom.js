@@ -67,6 +67,19 @@ class Dom {
         return this;
     }
 
+    setStyles(styles) {
+        Object.keys(styles).forEach(s => {
+            this.$el.style[s] = styles[s];
+        });
+    }
+
+    getStyles(styles) {
+        return styles.reduce((acc, style) => {
+            acc[style] = this.$el.style[style];
+            return acc;
+        }, {});
+    }
+
     focus() {
         this.$el.focus();
         return this;

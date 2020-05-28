@@ -18,8 +18,18 @@ export class TableSelection {
         this.group.forEach($cell => $cell.addClass(TableSelection.className));
     }
 
+    get selectedIds() {
+        return this.group.map(c => c.id());
+    }
+
     clear() {
         this.group.forEach($el => $el.removeClass(TableSelection.className));
         this.group = [];
+    }
+
+    applyStyle(styles) {
+        this.group.forEach($cell => {
+            $cell.setStyles(styles);
+        });
     }
 }

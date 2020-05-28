@@ -27,3 +27,11 @@ export function isEqual(a, b) {
     }
     return a === b;
 }
+
+export function camelToDash(str) {
+    return str.replace(/([A-Z])/g, val => `-${val.toLowerCase()}`);
+}
+
+export function toInlineStyles(styles) {
+    return Object.keys(styles).map(key => `${camelToDash(key)}:${styles[key]}`).join(';');
+}
