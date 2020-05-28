@@ -12,11 +12,19 @@ class Dom {
     }
 
     text(text) {
-        if (typeof text === 'string') {
-            this.$el.textContent = text;
+        if (typeof text !== 'undefined') {
+            this.$el.textContent = text.toString();
             return this;
         }
         return this.$el.textContent;
+    }
+
+    input(text) {
+        if (text) {
+            this.$el.value = text.trim();
+            return this;
+        }
+        return this.$el.value.trim();
     }
 
     clear() {
@@ -67,6 +75,19 @@ class Dom {
         return this;
     }
 
+    setStyles(styles) {
+        Object.keys(styles).forEach(s => {
+            this.$el.style[s] = styles[s];
+        });
+    }
+
+    getStyles(styles) {
+        return styles.reduce((acc, style) => {
+            acc[style] = this.$el.style[style];
+            return acc;
+        }, {});
+    }
+
     focus() {
         this.$el.focus();
         return this;
@@ -83,6 +104,10 @@ class Dom {
     addClass(className) {
         this.$el.classList.add(className);
         return this;
+    }
+
+    hasClass(className) {
+        return Array.from(this.$el.classList).includes(className);
     }
 
     removeClass(className) {
