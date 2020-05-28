@@ -4,3 +4,5 @@ export const defaultStyles = {
     textDecoration: 'none',
     textAlign: 'left',
 };
+
+export const defaultTableName = 'Новая таблица';

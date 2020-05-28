@@ -35,3 +35,15 @@ export function camelToDash(str) {
 export function toInlineStyles(styles) {
     return Object.keys(styles).map(key => `${camelToDash(key)}:${styles[key]}`).join(';');
 }
+
+export function debounce(fn, ms) {
+    let timeout;
+    return function(...args) {
+        const later = () => {
+            // eslint-disable-next-line
+            fn.apply(this, args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, ms);
+    };
+}

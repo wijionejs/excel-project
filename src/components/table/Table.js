@@ -11,6 +11,7 @@ import {TableSelection} from "@/components/table/TableSelection";
 import {$} from "@core/dom";
 import * as actions from "@/redux/actions";
 import {defaultStyles} from "@core/constants";
+import {debounce} from "@core/utils.";
 
 export class Table extends ExcelComponent {
     static className = 'excel__table';
@@ -29,6 +30,7 @@ export class Table extends ExcelComponent {
 
     prepare() {
         this.selection = new TableSelection();
+        this.onInput = debounce(this.onInput, 250);
     }
 
     init() {
@@ -109,6 +111,7 @@ export class Table extends ExcelComponent {
     }
 
     onInput(event) {
+        console.log(event.target.textContent);
         this.updateTextInStore($(event.target).text());
     }
 

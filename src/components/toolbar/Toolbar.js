@@ -20,7 +20,6 @@ export class Toolbar extends ExcelStateComponent {
     }
 
     get template() {
-        console.log('render');
         return createToolbar(this.state);
     }
 

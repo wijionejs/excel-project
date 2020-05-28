@@ -19,6 +19,14 @@ class Dom {
         return this.$el.textContent;
     }
 
+    input(text) {
+        if (text) {
+            this.$el.value = text.trim();
+            return this;
+        }
+        return this.$el.value.trim();
+    }
+
     clear() {
         this.html('');
         return this;
@@ -96,6 +104,10 @@ class Dom {
     addClass(className) {
         this.$el.classList.add(className);
         return this;
+    }
+
+    hasClass(className) {
+        return Array.from(this.$el.classList).includes(className);
     }
 
     removeClass(className) {
