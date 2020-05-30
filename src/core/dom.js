@@ -42,7 +42,10 @@ class Dom {
         return this;
     }
 
-    append(node) {
+    append(node, clear = false) {
+        if (clear) {
+            this.$el.innerHTML = '';
+        }
         if (node instanceof Dom) {
             node = node.$el;
         }
