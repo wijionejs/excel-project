@@ -3,8 +3,7 @@ import {Emitter} from "@core/Emitter";
 import {StoreSubscriber} from "@core/StoreSubscriber";
 
 export class Excel {
-    constructor(selector, options) {
-        this.$el = $(selector);
+    constructor(options) {
         this.components = options.components || [];
         this.emitter = new Emitter();
         this.store = options.store;
@@ -29,15 +28,23 @@ export class Excel {
         return $root;
     }
 
-    render() {
-        this.$el.append(this.getRoot());
-
+    init() {
+        if (process.env.NODE_ENV === 'production') {
+            window.addEventListener('contextmenu', preventDefault);
+        }
         this.subscriber.subscribeComponents(this.components);
         this.components.forEach(component => component.init());
     }
 
     destroy() {
+        if (process.env.NODE_ENV === 'production') {
+            window.removeEventListener('contextmenu', preventDefault);
+        }
         this.subscriber.unsubscribeComponents();
         this.components.forEach(component => component.destroy());
     }
+}
+
+function preventDefault(e) {
+    e.preventDefault();
 }

@@ -3,3 +3,4 @@ export const CHANGE_TEXT = 'CHANGE_TEXT';
 export const CHANGE_STYLES = 'CHANGE_STYLES';
 export const APPLY_STYLE = 'APPLY_STYLE';
 export const CHANGE_TABLE_NAME = 'CHANGE_TABLE_NAME';
+export const CHANGE_OPENED_DATE = 'CHANGE_OPENED_DATE';
