@@ -1,4 +1,11 @@
-import {APPLY_STYLE, CHANGE_STYLES, CHANGE_TABLE_NAME, CHANGE_TEXT, TABLE_RESIZE} from "@/redux/types";
+import {
+    APPLY_STYLE,
+    CHANGE_OPENED_DATE,
+    CHANGE_STYLES,
+    CHANGE_TABLE_NAME,
+    CHANGE_TEXT,
+    TABLE_RESIZE,
+} from "@/redux/types";
 
 export function rootReducer(state, action) {
     let prevState;
@@ -40,6 +47,11 @@ export function rootReducer(state, action) {
         return {
             ...state,
             tableName: action.data,
+        };
+    case CHANGE_OPENED_DATE:
+        return {
+            ...state,
+            openedDate: action.data,
         };
     default:
         return state;

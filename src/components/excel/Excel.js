@@ -29,12 +29,22 @@ export class Excel {
     }
 
     init() {
+        if (process.env.NODE_ENV === 'production') {
+            window.addEventListener('contextmenu', preventDefault);
+        }
         this.subscriber.subscribeComponents(this.components);
         this.components.forEach(component => component.init());
     }
 
     destroy() {
+        if (process.env.NODE_ENV === 'production') {
+            window.removeEventListener('contextmenu', preventDefault);
+        }
         this.subscriber.unsubscribeComponents();
         this.components.forEach(component => component.destroy());
     }
+}
+
+function preventDefault(e) {
+    e.preventDefault();
 }

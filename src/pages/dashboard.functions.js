@@ -1,29 +1,38 @@
-function toHTML(table) {
+import {storage} from "@core/utils.";
+
+function toHTML(key) {
+    const table = storage(key);
+    const param = getParam(key);
+    const date = new Date(table.openedDate).toLocaleString();
     return `
         <li class="db__record">
-            <a href="">${table.tableName}</a>
-            <strong>06.12.2020</strong>
+            <a href="/#excel/${param}">${table.tableName}</a>
+            <strong>${date}</strong>
         </li>
     `;
 }
 
-function getAllTables() {
-    const items = [];
+function getParam(key) {
+    return key.split(':')[1];
+}
+
+function getAllKeys() {
+    const keys = [];
 
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         if (key.includes('excel')) {
-            items.push(JSON.parse(localStorage.getItem(key)));
+            keys.push(key);
         }
     }
 
-    return items;
+    return keys;
 }
 
 export function createTableList() {
-    const tables = getAllTables();
+    const keys = getAllKeys();
 
-    if (!tables.length) {
+    if (!keys.length) {
         return `<p>Вы ещё не создали ни одной таблицы</p>`;
     }
 
@@ -34,7 +43,7 @@ export function createTableList() {
         </div>
 
         <ul class="db__list">
-            ${tables.map(toHTML).join('')}
+            ${[...keys].reverse().map(toHTML).join('')}
         </ul>
     `;
 }
